@@ -51,6 +51,12 @@ function render(){
       a.href=c.url;a.target="_blank";a.rel="noopener noreferrer";
       popup.append(a);
     }
+    if(activeMode==="private" && c.address){
+      const mapsLink=text("a","以地址開啟 Google Maps ↗");
+      mapsLink.href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(c.address);
+      mapsLink.target="_blank";mapsLink.rel="noopener noreferrer";
+      popup.append(text("div","","customer-foot"),mapsLink);
+    }
     marker.bindPopup(popup);
     cluster.addLayer(marker);
     const b=text("button","","customer");b.type="button";
