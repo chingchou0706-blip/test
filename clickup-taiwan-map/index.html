@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="台灣客戶分布地圖，透過 ClickUp List 自動整理。">
+  <title>客戶分布地圖 · Taiwan Customer Atlas</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brandmark" aria-hidden="true">◈</div>
+        <div class="brandtext"><b>Customer Atlas</b><span>TAIWAN · CLICKUP</span></div>
+      </div>
+      <div class="topbar-right">
+        <span class="status-pill"><span class="led"></span> ClickUp 資料同步</span>
+        <span class="sync-time" id="syncTime">等待資料載入</span>
+      </div>
+    </header>
+
+    <section class="overview" aria-label="總覽">
+      <div class="heading">
+        <div class="eyebrow">CUSTOMER INTELLIGENCE / 地理分布</div>
+        <h1>全台客戶分布<span class="title-dot">.</span></h1>
+        <p>從 ClickUp 地址欄位產生的可探索客戶地圖</p>
+      </div>
+      <div class="metric-row">
+        <div class="metric"><span class="metric-label">所有任務</span><strong id="metricTasks">—</strong><small>List 內任務數</small></div>
+        <div class="metric"><span class="metric-label">成功定位</span><strong id="metricLocated">—</strong><small>可顯示在地圖</small></div>
+        <div class="metric"><span class="metric-label">涵蓋縣市</span><strong id="metricCounties">—</strong><small>客戶分布區域</small></div>
+        <div class="metric"><span class="metric-label">需補地址</span><strong id="metricMissing">—</strong><small>空白或無法定位</small></div>
+      </div>
+    </section>
+
+    <div class="workspace">
+      <aside class="panel" aria-label="客戶搜尋及清單">
+        <div class="panel-heading">
+          <div><div class="eyebrow">DIRECTORY</div><h2>客戶清單 <span id="visibleCount" class="muted-count">0</span></h2></div>
+          <button type="button" class="small-btn" id="resetBtn" title="重設篩選">重設</button>
+        </div>
+        <div class="filters">
+          <label class="searchbox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input id="searchInput" placeholder="搜尋客戶、地址、狀態…" autocomplete="off" aria-label="搜尋"></label>
+          <div class="two-cols">
+            <label>縣市<select id="countySelect"><option value="">所有縣市</option></select></label>
+            <label>狀態<select id="statusSelect"><option value="">所有狀態</option></select></label>
+          </div>
+        </div>
+        <div class="section-label">地圖上的客戶 <span>選取可定位</span></div>
+        <div id="customerList" class="customer-list" aria-live="polite"><div class="empty-state">正在載入客戶資料…</div></div>
+        <div class="panel-bottom" id="privacyBanner">依資料公開設定顯示客戶資訊</div>
+      </aside>
+      <main class="mapwrap" aria-label="台灣客戶地圖">
+        <div id="map" role="application" aria-label="互動式台灣客戶地圖"></div>
+        <div class="map-overlay top-left"><span class="legend-dot"></span><b>台灣地區</b><small>點擊標記查看客戶</small></div>
+        <div class="map-overlay bottom-right"><span class="tiny-dot"></span> 點位為概略位置；實際精度依來源而異</div>
+        <button class="fit-btn" id="fitBtn" type="button" title="顯示所有篩選結果">⤢ <span>顯示全部</span></button>
+      </main>
+    </div>
+    <footer class="footer"><span>Customer Atlas · 由 ClickUp List 自動產生</span><span>地圖資料 © OpenStreetMap contributors</span></footer>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script defer src="./app.js"></script>
+</body>
+</html>
