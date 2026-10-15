@@ -121,7 +121,7 @@ function unlockView(){
   const msg=text("p","正在檢查加密資料…","unlock-message");msg.setAttribute("role","status");
   row.append(input,button);
   wrapper.append(heading,blurb,row,msg);
-  panel.insertBefore(wrapper,$("privacyBanner"));
+  panel.insertBefore(wrapper,document.querySelector(".section-label"));
   let secureDoc=null;
   fetch("./customers.secure.json",{cache:"no-store"}).then(r=>{
     if(!r.ok)throw new Error("尚未產生加密資料");
