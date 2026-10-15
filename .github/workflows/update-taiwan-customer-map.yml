@@ -1,6 +1,11 @@
 name: Update Taiwan Customer Map
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'clickup-taiwan-map/scripts/sync_clickup.py'
+      - '.github/workflows/update-taiwan-customer-map.yml'
   schedule:
     - cron: "0 0 * * *"
 permissions:
