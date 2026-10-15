@@ -144,8 +144,8 @@ def geocode(address, api_key, session):
     if not (21 <= coords[0] <= 27 and 117 <= coords[1] <= 124):
         return None
     # Do not present city/district centroids as precise house coordinates.
-    if confidence >= .65 and (match in ("full_match", "match_by_building", "inner_part")
-                               or found_type in ("building", "amenity")):
+    if confidence >= .65 and (found_type in ("building", "amenity")
+                               or (item.get("housenumber") and match in ("full_match", "match_by_building", "inner_part"))):
         quality = "address"
     elif confidence >= .60 and (found_type == "street" or match == "match_by_street"):
         quality = "street"
@@ -203,7 +203,7 @@ def main():
                     cache[normalized] = geocode(normalized, api_key, session)
                 except (requests.exceptions.RequestException, ValueError, KeyError) as exc:
                     # Abort on a service failure so we do not mistake errors for missing addresses.
-                    raise RuntimeError("Geoapify request failed; check API key/quota") from exc
+                    raise RuntimeError("Geoapify request failed; check API key/quota") from None
             hit = cache[normalized]
             if hit:
                 coords = (hit["lat"], hit["lng"])
