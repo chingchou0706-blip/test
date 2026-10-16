@@ -1,17 +1,11 @@
-name: Update Taiwan Customer Map
+name: Update Taiwan Customer Map (PAUSED)
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'clickup-taiwan-map/scripts/sync_clickup.py'
-      - '.github/workflows/update-taiwan-customer-map.yml'
-  schedule:
-    - cron: "0 0 * * *"
 permissions:
   contents: write
 jobs:
   sync:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
